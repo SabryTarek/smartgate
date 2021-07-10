@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- IE compatabilty meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Mobile First -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Smart Cam Gate</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+  <body>
+    <img class="logo" src="img/10c6942c-e7cd-4f84-82ca-da91c6527793.jpg"></img>
+    <div class="container">
+      <div class="live-cam"></div>
+      <div class="submit">
+        <span>SCAN</span>
+        <button class="btn"></button>
+      </div>
+    </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyAf3Mq1dsMZ2dplNqCz35U8N-eH-PIzycA",
+        authDomain: "finalproject2020-9e21f.firebaseapp.com",
+        databaseURL: "https://finalproject2020-9e21f-default-rtdb.firebaseio.com",
+        projectId: "finalproject2020-9e21f",
+        storageBucket: "finalproject2020-9e21f.appspot.com",
+        messagingSenderId: "373896685075",
+        appId: "1:373896685075:web:35e635ce20c48eaebd41e6",
+        measurementId: "G-128GJ0L287"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+  </body>
+</html>
