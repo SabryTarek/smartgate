@@ -38,7 +38,7 @@
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
 
     <script>
       // Your web app's Firebase configuration
@@ -55,7 +55,90 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
+    </script>
+
+    <script>
+      //console.log(firebase)
+      var db = firebase.database();
+
+      /**
+       * Person data
+       * @typedef {Object} Person
+       *
+       * @property {string} "block number"
+       * @property {string} "flat number" 
+       * @property {string} "floor number" 
+       * @property {string} "mobile number" 
+       * @property {string} name
+       * @property {string} "car letter" - letters part of the car's plate
+       * @property {string} "number of car" - numbers part of the car's plate
+       */
+
+      /**
+       * check if a given car plate is exist or not
+       *
+       * @param {string} letters - letters part of the plate
+       * @param {string} numbers - numbers part of the plate
+       *
+       * @returns {Promise<Person | null>}
+       */
+      matchCarPlate = function (letters, numbers) {
+
+        // find a car by its plate letters
+        var carPlateLetters = db
+          .ref('persons')
+          .orderByChild('car letter')
+          .equalTo(letters)
+          .limitToFirst(1)
+          .once('value')
+          .then(snapshot => {
+            var carPlateLetters = { key: '', value: {} };
+            snapshot.forEach(childSnapshot => {
+              carPlateLetters.key = childSnapshot.key;
+              carPlateLetters.value = childSnapshot.toJSON();
+            })
+  
+            return carPlateLetters;
+          });
+
+        // find a car by its plate numbers
+        var carPlateNum = db
+          .ref('persons')
+          .orderByChild('number of car')
+          .equalTo(numbers)
+          .limitToFirst(1)
+          .once('value')
+          .then(snapshot => {
+            var carPlateNum = { key: '', value: {} };
+            snapshot.forEach(childSnapshot => {
+              carPlateNum.key = childSnapshot.key;
+              carPlateNum.value = childSnapshot.toJSON();
+            })
+
+            return carPlateNum;
+          });
+
+          // return the value returned from inside the promise
+          return Promise
+            .all([carPlateLetters, carPlateNum])
+            .then(res => {
+              // check if both persons are the same
+              var isEqual = res[0].key === res[1].key
+              return isEqual ? res[0].value : null;
+            });
+      }
+
+    </script>
+
+    <script>
+      // usage example
+      var plateLetters = 'س ‏ص ‏أ';
+      var plateNumbers = '367'
+      matchCarPlate(plateLetters, plateNumbers)
+        .then(res => {
+          console.log(res);
+          return res;
+        });
     </script>
   </body>
 </html>
